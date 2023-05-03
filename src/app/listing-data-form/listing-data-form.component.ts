@@ -33,7 +33,8 @@ export class ListingDataFormComponent {
       id: null ?? '',
       name: this.name,
       description: this.description,
-      price: Number(this.price)
+      price: Number(this.price),
+      views: 0
     })
     
   }
