@@ -50,4 +50,12 @@ export class ListingsService {
     )
   }
 
+  editListing(id: string | null, name: string, description: string, price: number): Observable<Listing> {
+    return this.http.post<Listing>(
+      `/api/listings/${id}`,
+      {name, description, price},
+      httpOptions
+    )
+  }
+
 }

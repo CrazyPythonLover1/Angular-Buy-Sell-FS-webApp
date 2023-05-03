@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { fakeMyListings } from '../fake-data';
 import { Listing } from '../types';
+import { ListingsService } from '../listings.service';
 
 @Component({
   selector: 'app-edit-listing-page',
@@ -9,19 +10,26 @@ import { Listing } from '../types';
   styleUrls: ['./edit-listing-page.component.css']
 })
 export class EditListingPageComponent {
-  listing: Listing | undefined;
+  listing!: Listing;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private ListingsService: ListingsService,
   ) { }
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.listing = fakeMyListings.find(listing => Number(listing.id) === Number(id))
+    this.ListingsService.getListingByid(id)
+      .subscribe(listing => {
+        this.listing = listing; 
+      })
   }
 
-  onSubmit(): void {
-    alert('Saving changes to the listing...');
-    this.router.navigateByUrl('/my-listings');
+  onSubmit({name, description, price}: { name: string, description: string, price: number }): void {
+    this.ListingsService.editListing(this.listing.id, name, description, price)
+      .subscribe(() => {
+        this.router.navigateByUrl('/my-listings');
+      })
+
   }
 }
