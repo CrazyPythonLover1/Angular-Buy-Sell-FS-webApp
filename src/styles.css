@@ -5,7 +5,7 @@ body {
 }
 
 button {
-  background-color: black;
+  background-color: #6871EA;
   border: none;
   border-radius: 8px;
   color: white;
@@ -34,6 +34,7 @@ div {
 }
 
 #page-wrap {
+  background-image: linear-gradient(90deg, rgba(241, 196, 220, 0.3) 20%, rgba(127, 86, 217, 0.3) 100%);
   background-color: #EEE;
   min-height: 100vh;
   padding: 0;
@@ -69,6 +70,7 @@ div {
 
 .content-box {
   background-color: #EEE;
+  background-color: #b2b7ff33;
   border-radius: 8px;
   padding: 16px;
   position: relative;
