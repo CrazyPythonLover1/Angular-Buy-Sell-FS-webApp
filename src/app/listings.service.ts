@@ -62,7 +62,16 @@ export class ListingsService {
   }
 
   deleteListing(id: string | null): Observable<any> {
-    return this.http.delete(`/api/listings/${id}`)
+    return new Observable<any>(observer => {
+      this.auth.user.subscribe(user => {
+        user && user.getIdToken().then(token => {
+          this.http.delete(
+            `/api/listings/${id}`,
+            httpOptionsWithAuthToken(token)
+          ).subscribe(() => observer.next());
+        })
+      })
+    })
   }
 
   createListing(name: string, description: string, price: number): Observable<Listing> {
